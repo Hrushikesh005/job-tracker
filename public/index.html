@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Application Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>🎯 Job Application Tracker</h1>
+    <p>Track every application. Land your dream job.</p>
+  </header>
+
+  <!-- DASHBOARD COUNTS -->
+  <section class="dashboard">
+    <div class="card" id="card-applied">
+      <h3>Applied</h3>
+      <span id="count-applied">0</span>
+    </div>
+    <div class="card" id="card-interview">
+      <h3>Interview</h3>
+      <span id="count-interview">0</span>
+    </div>
+    <div class="card" id="card-offer">
+      <h3>Offer</h3>
+      <span id="count-offer">0</span>
+    </div>
+    <div class="card" id="card-rejected">
+      <h3>Rejected</h3>
+      <span id="count-rejected">0</span>
+    </div>
+  </section>
+
+  <!-- ADD APPLICATION FORM -->
+  <section class="form-section">
+    <h2>➕ Add New Application</h2>
+    <div class="form">
+      <select id="company_id"></select>
+      <input type="text" id="role" placeholder="Role (e.g. Software Engineer)" />
+      <input type="date" id="date_applied" />
+      <select id="status">
+        <option value="Applied">Applied</option>
+        <option value="Interview Scheduled">Interview Scheduled</option>
+        <option value="Offer">Offer</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+      <input type="text" id="salary_range" placeholder="Salary Range (e.g. 4-6 LPA)" />
+      <input type="text" id="notes" placeholder="Notes" />
+      <button onclick="addApplication()">Add Application</button>
+    </div>
+  </section>
+
+  <!-- SEARCH + FILTER + SORT -->
+  <section class="filter-section">
+    <h2>📋 All Applications</h2>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="🔍 Search by company name..." oninput="searchApplications()" />
+    </div>
+    <div class="filters">
+      <button onclick="filterApplications('All')" class="filter-btn active">All</button>
+      <button onclick="filterApplications('Applied')" class="filter-btn">Applied</button>
+      <button onclick="filterApplications('Interview Scheduled')" class="filter-btn">Interview</button>
+      <button onclick="filterApplications('Offer')" class="filter-btn">Offer</button>
+      <button onclick="filterApplications('Rejected')" class="filter-btn">Rejected</button>
+      <select id="sort-select" onchange="sortApplications()">
+        <option value="newest">Newest First</option>
+        <option value="oldest">Oldest First</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- APPLICATIONS TABLE -->
+  <section class="table-section">
+    <table id="applications-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Company</th>
+          <th>Role</th>
+          <th>Date Applied</th>
+          <th>Status</th>
+          <th>Salary</th>
+          <th>Notes</th>
+          <th>Update Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </section>
+
+  <!-- INTERVIEW MODAL -->
+  <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 id="modal-title">Interview Rounds</h2>
+        <button class="close-btn" onclick="closeModal()">✕</button>
+      </div>
+
+      <!-- Interview rounds list -->
+      <div id="interview-list"></div>
+
+      <!-- Add interview round form -->
+      <div class="interview-form">
+        <h3>➕ Add Interview Round</h3>
+        <div class="interview-inputs">
+          <input type="number" id="round-number" placeholder="Round No. (e.g. 1)" min="1" />
+          <input type="date" id="interview-date" />
+          <input type="text" id="interview-outcome" placeholder="Outcome (e.g. Cleared, Pending)" />
+          <button onclick="addInterview()">Add Round</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
